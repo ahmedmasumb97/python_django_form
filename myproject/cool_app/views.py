@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .form import searchform
+from .form import Searchform
 
 # Create your views here.f
 
@@ -11,24 +11,36 @@ def todos(request):
         {'title':'Buy vegtables','complete':True}
     ]
 
-    search_obj = searchform(request.GET)
-    if search_obj.is_valid():
-        search_obj = search_obj.cleaned_data['Search']
+   
+  
+    # if search_form.is_valid():
+    #     search_term = search_form.cleaned_data['Search']
+    #     print(search_term)
 
-    # data from url
+
     # url_string = request.GET.get('Search')
+
+    # form
+    search_form = Searchform(request.GET)
+
+    # form data
+    search_term=''
+    if search_form.is_valid():
+        search_term = search_form.cleaned_data['Search'].lower()
+        
+
   
 
 # loop and data print browser
-    search_term = []
+    search_todo = []
     for todo in data:
-        if search_obj and search_obj.lower() in todo['title'].lower():
-            search_term.append(todo)
+        if search_term and search_term in todo.get('title').lower():
+            search_todo.append(todo)
            
 
     data ={
-        'todos': search_term,
-        'serch_obj':search_obj
+        'todos': search_todo,
+        'search_obj':search_form,
         }
 
     return render(request,'cool_app/todo.html',context=data)
