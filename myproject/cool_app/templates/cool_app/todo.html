@@ -1,0 +1,29 @@
+{% extends "templete.html" %} {% block content %}
+
+{% comment %} <form method= 'get'>
+    <input type="search" placeholder="search text" name="search">
+    <button type="submit">Submit</button>
+</form> {% endcomment %}
+
+<form method= 'get' class='form-control w-75 m-auto bg-primary p-4 shadshadow-lg'>
+    {{ serch_obj }}
+    <button type="submit" class='btn btn-warning border-2 m-2'>Submit</button>
+
+
+<ul class='list-group'>
+    {% for todo in todos %}
+    <li class="list-group-item "> 
+       {{ todo.title }}- {{ todo.complete }}
+    </li>
+    {% endfor %} 
+</ul>
+
+</form>
+
+
+
+        
+
+
+
+{%endblock %} {% block title %} todo {% endblock%}
